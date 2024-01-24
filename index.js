@@ -5,14 +5,15 @@ dotenv.config()
 import colors from 'colors'
 
 
-
-
 const app = express();
 const port = process.env.PORT;
 
 
-//carpeta publica
+//*carpeta publica
 app.use( express.static('public') )
+
+//*Lectura y parseo del body
+app.use( express.json() );
 
 //*crear servidor de express
 app.listen(port, () => {
