@@ -1,31 +1,24 @@
 import express from 'express';
+import authRouter from './routes/auth.js';
 import * as dotenv from 'dotenv'
 dotenv.config()
+import colors from 'colors'
+
+
 
 
 const app = express();
 const port = process.env.PORT;
+
 
 //carpeta publica
 app.use( express.static('public') )
 
 //*crear servidor de express
 app.listen(port, () => {
-    console.log(`Seridor corriendo en puerto: ${port}`);
+    console.log(`Servidor corriendo en puerto: ${port.green}`);
     }
 );
 
 //*rutas
-
-app.get("/", (req, res) => {
-    res.status(200).json({
-        ok: true,
-        msg: "Hola mundo"
-    });
-    }
-);
-
-
-
-
-
+app.use('/api/auth', authRouter);
