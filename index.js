@@ -3,11 +3,15 @@ import authRouter from './routes/auth.js';
 import * as dotenv from 'dotenv'
 dotenv.config()
 import colors from 'colors'
+import { dbConnect } from './database/config.js';
 
 
 const app = express();
 const port = process.env.PORT;
 
+
+//base de datos
+dbConnect();
 
 //*carpeta publica
 app.use( express.static('public') )
