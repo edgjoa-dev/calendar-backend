@@ -1,7 +1,6 @@
 import { request, response } from 'express';
 import User from '../models/User.js';
 
-
 export const createUser = async(req=request, res=response) => {    
     try {
     //Guardar newUser en base de datos de mongodb
@@ -16,7 +15,7 @@ export const createUser = async(req=request, res=response) => {
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            msg: 'Error en el servidor'
+            msg: 'Error en el servidor, porfavor contacte al administrador'
         });
     }
 }

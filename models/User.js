@@ -14,9 +14,7 @@ const UserSchema = Schema({
         type: String,
         required: true
     },
-
-
-    })
+})
 
 
 const User = model('User', UserSchema)
