@@ -1,10 +1,19 @@
 import { request, response } from 'express';
+import bcrypt from "bcrypt";
+
 import User from '../models/User.js';
 
 export const createUser = async(req=request, res=response) => {    
 
-    const { email } = req.body;
+    const { email, password } = req.body;
     //Válida si el usuario ya existe en la base de datos
+    let user = await User.findOne({ email });
+    if( user ){
+        return res.status(400).json({
+            msg: 'El usuario ya existe'
+        });
+    }
+
     try {
         let user = await User.findOne({ email });
         
@@ -14,8 +23,12 @@ export const createUser = async(req=request, res=response) => {
             });
         }
 
-    //Guardar newUser en base de datos de mongodb
+        //Guardar newUser en base de datos de mongodb
         const newUser = new User(req.body);
+        
+        //Encriptar contraseña
+        const salt = bcrypt.genSaltSync(10);
+        newUser.password = bcrypt.hashSync( password, salt);
 
         await newUser.save();
 
