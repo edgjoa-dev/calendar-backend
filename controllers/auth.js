@@ -1,17 +1,24 @@
 import { request, response } from 'express';
+import User from '../models/User.js';
 
 
-export const createUser = (req=request, res=response) => {
+export const createUser = async(req=request, res=response) => {    
+    try {
+    //Guardar newUser en base de datos de mongodb
+        const newUser = new User(req.body);
 
-    const {name, email, password, revalidPassword } = req.body;
+        await newUser.save();
 
-    res.status(201).json({
-        msg: 'Create user',
-        name,
-        email,
-        password,
-        revalidPassword,
-    });
+        res.status(201).json({
+            msg: 'Usuario creado ok!',
+        })
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            msg: 'Error en el servidor'
+        });
+    }
 }
 
 export const loginUser = (req=request, res=response) => {
@@ -21,7 +28,7 @@ export const loginUser = (req=request, res=response) => {
     res.status(200).json({
         msg: 'Login ok',
         email,
-        password
+        password,
     });
 }
 
