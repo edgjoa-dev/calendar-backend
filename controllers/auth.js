@@ -47,15 +47,41 @@ export const createUser = async(req=request, res=response) => {
     }
 }
 
-export const loginUser = (req=request, res=response) => {
-
+export const loginUser = async(req=request, res=response) => {
+    
     const { email, password } = req.body;
+    
+    try {
+        //Validar si el usuario existe en la base de datos
+        const user = await User.findOne({ email });
+        if(!user){
+            return res.status(400).json({
+                msg: 'Usuario o Contraseña no válidos.'
+            });
+        }
 
-    res.status(200).json({
-        msg: 'Login ok',
-        email,
-        password,
-    });
+        //Validar match de contraseña
+        const validPassword = bcrypt.compareSync(password, user.password);
+        if(!validPassword){
+            return res.status(400).json({
+                msg: 'Usuario o Contraseña no válidos, favor de verificar nuevamente.'
+            });
+        }
+
+        //Generar JWT
+        res.status(200).json({
+            ok: true,
+            uid: user.id,
+            name: user.name,
+        })
+
+    } catch (error) {
+    //Mostrar error de registro nuevo usuario
+        console.log(error);
+        return res.status(500).json({
+            msg: 'Error en el servidor, porfavor contacte al administrador'
+        });
+    }
 }
 
 export const ravalidateToken = (req=request, res=response) => {
