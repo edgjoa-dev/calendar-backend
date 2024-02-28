@@ -2,6 +2,7 @@ import { Router } from "express";
 import { createUser, loginUser, ravalidateToken } from "../controllers/auth.js";
 import { check } from "express-validator";
 import { fieldValidator, revalidationPassword } from "../middleware/field-validator.js";
+import { validateJWT } from "../middleware/revalidate-jwt.js";
 
 
 const router = Router();
@@ -22,7 +23,7 @@ router.post('/login', [
 ],
 loginUser)
 
-router.post('/revalidtoken', ravalidateToken);
+router.get('/revalidtoken', validateJWT ,ravalidateToken);
 
 
 export default router;
