@@ -1,7 +1,10 @@
 import express from 'express';
 import authRouter from './routes/auth.js';
+import cors from 'cors';
+
 import * as dotenv from 'dotenv'
 dotenv.config()
+
 import colors from 'colors'
 import { dbConnect } from './database/config.js';
 
@@ -15,6 +18,9 @@ dbConnect();
 
 //*carpeta publica
 app.use( express.static('public') )
+
+//CORS
+app.use(cors())
 
 //*Lectura y parseo del body
 app.use( express.json() );

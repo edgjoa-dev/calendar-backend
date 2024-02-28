@@ -98,7 +98,7 @@ export const ravalidateToken = async(req=request, res=response) => {
 
     //Generar JWT
     const token = await generateJWT(uid, name)
-    
+
     //Respuesta ok
     return res.json({
         ok: true,
