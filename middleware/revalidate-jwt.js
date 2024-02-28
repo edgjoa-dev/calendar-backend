@@ -19,7 +19,7 @@ export const validateJWT = ( req=request, res=response, next ) => {
 
         req.uid = uid;
         req.name = name;
-        
+
     } catch (error) {
         console.log(error);
         return res.status(401).json({
