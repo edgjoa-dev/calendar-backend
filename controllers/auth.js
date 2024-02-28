@@ -92,8 +92,16 @@ export const loginUser = async(req=request, res=response) => {
     }
 }
 
-export const ravalidateToken = (req=request, res=response) => {
-    res.status(200).json({
-        msg: 'Revalidar token'
-    });
+export const ravalidateToken = async(req=request, res=response) => {
+
+    const { uid, name } = req;
+
+    //Generar JWT
+    const token = await generateJWT(uid, name)
+    
+    //Respuesta ok
+    return res.json({
+        ok: true,
+        token
+    })
 }
