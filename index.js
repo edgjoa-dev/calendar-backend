@@ -1,5 +1,6 @@
 import express from 'express';
 import authRouter from './routes/auth.js';
+import eventRouter from './routes/events.js';
 import cors from 'cors';
 
 import * as dotenv from 'dotenv'
@@ -33,3 +34,4 @@ app.listen(port, () => {
 
 //*rutas
 app.use('/api/auth', authRouter);
+app.use('/api/event', eventRouter);
