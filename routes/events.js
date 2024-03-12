@@ -21,6 +21,7 @@ router.post('/',      [
     check('title','El titulo es obligatorio').notEmpty(),
     check('start','Fecha de inicio es obligatoria').custom(isDate),
     check('end','Fecha de finalización es obligatoria').custom(isDate),
+    check('user', 'El usuario es obligatorio').notEmpty(),
     fieldValidator,
 ],
     createEvent,

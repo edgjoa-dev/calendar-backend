@@ -11,12 +11,26 @@ export const getEvent = ( req=request, res=response )=> {
 }
 
 
-export const createEvent = ( req=request, res=response )=> {
+export const createEvent = async( req=request, res=response )=> {
 
-    return res.status(200).json({
-        ok:true,
-        msg: 'createEvent - ok'
-    })
+    const event = new Event(req.body);
+
+    try {
+
+        const eventCreated = await event.save();
+
+        return res.status(200).json({
+            ok:true,
+            event: eventCreated
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok:false,
+            msg: 'Hable con el administrador o revise los logs en consola'
+        })
+    }
 
 }
 
