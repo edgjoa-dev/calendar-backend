@@ -10,10 +10,7 @@ const router = Router();
 
 router.use( validateJWT )
 
-router.get('/',       [
-    check('title', 'El titulo es obligatorio').notEmpty(),
-    fieldValidator
-],
+router.get('/',
     getEvent,
 )
 
@@ -21,19 +18,19 @@ router.post('/',      [
     check('title','El titulo es obligatorio').notEmpty(),
     check('start','Fecha de inicio es obligatoria').custom(isDate),
     check('end','Fecha de finalización es obligatoria').custom(isDate),
-    check('user', 'El usuario es obligatorio').notEmpty(),
     fieldValidator,
 ],
     createEvent,
 )
 router.put('/:id',    [
-    check()
+    check('title','El titulo es obligatorio').notEmpty(),
+    check('start','Fecha de inicio es obligatoria').custom(isDate),
+    check('end','Fecha de finalización es obligatoria').custom(isDate),
+    fieldValidator,
 ],
     updateEvent,
 )
-router.delete('/:id', [
-    check()
-],
+router.delete('/:id',
     deleteEvent,
 )
 

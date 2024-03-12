@@ -1,5 +1,4 @@
-import { Schema, model } from 'express';
-
+import { Schema, model } from 'mongoose';
 
 const EventSchema = Schema({
 
@@ -7,7 +6,7 @@ const EventSchema = Schema({
         type: String,
         required: true,
     },
-    note:{
+    notes:{
         type: String,
     },
     start:{
