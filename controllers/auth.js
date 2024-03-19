@@ -102,6 +102,8 @@ export const ravalidateToken = async(req=request, res=response) => {
     //Respuesta ok
     return res.json({
         ok: true,
+        uid,
+        name,
         token
     })
 }
